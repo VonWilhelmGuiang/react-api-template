@@ -1,23 +1,25 @@
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Snackbar from '@mui/material/Snackbar';
-import { Alert } from '@mui/material';
 import { useState } from 'react';
-
 import {Copyright,setCookie,getCookie} from '../../helpers/helpers';
 import {UserLogin} from '../../helpers/apiCalls';
+
+import {
+    Avatar,
+    Button,
+    CssBaseline,
+    TextField,
+    FormControlLabel,
+    Checkbox,
+    Link,
+    Grid,
+    Box,
+    Container,
+    createTheme, ThemeProvider,
+    Typography,
+    Snackbar,
+    Alert
+} from '@mui/material';
 
 const Login = () => {
     const [hasErrors, setHasErrors] = useState(false);
@@ -31,12 +33,14 @@ const Login = () => {
     const defaultTheme = createTheme({
         palette: {
             primary : {
-                main : '#28231C'
+                main : '#28231C',
+                bgColor: '#EEF2F6'
             },
             secondary : {
-                main : '#1A181B'
-            }
-        } 
+                main : '#1A181B',
+                bgColor: '#FFFFFF'
+            },
+        }
     });
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -52,80 +56,90 @@ const Login = () => {
        
     }
     return(
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
+        <React.Fragment>
+            <ThemeProvider theme={defaultTheme}>
+                <Box  sx={{
+                    width: '100%',
+                    height:'100vh',
+                    paddingTop: 20,
+                    bgcolor:'primary.bgColor'
+                }}> 
+                    <Container component='main' maxWidth='xs' sx={{bgcolor : 'secondary.bgColor', borderRadius : 5}}>
+                        <CssBaseline />
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                paddingTop:5,
+                                paddingBottom: 10
+                            }}
+                        >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}/>
+                        <Typography component='h1' variant='h5'>
+                            Sign in
+                        </Typography>
+                        <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <TextField
+                                margin='normal'
+                                required
+                                fullWidth
+                                id='email'
+                                label='Email Address'
+                                name='email'
+                                autoComplete='email'
+                                autoFocus
+                            />
+                            <TextField
+                                margin='normal'
+                                required
+                                fullWidth
+                                name='password'
+                                label='Password'
+                                type='password'
+                                id='password'
+                                autoComplete='current-password'
+                            />
+                            <FormControlLabel
+                                control={<Checkbox value='remember' color='primary' />}
+                                label='Remember me'
+                            />
+                            <Button
+                                type='submit'
+                                fullWidth
+                                variant='contained'
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                            Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href='#' variant='body2'>
+                                    Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item xs>
+                                    <Link href='#' variant='body2'>
+                                        Sign Up
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        </Box>
+                    </Container>
+                    <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Box >
+
+                <Snackbar
+                    anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+                    open={hasErrors}
+                    autoHideDuration={6000}
+                    key={'test'}
                 >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                    Sign In
-                    </Button>
-                    <Grid container>
-                    <Grid item xs>
-                        <Link href="#" variant="body2">
-                        Forgot password?
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link href="#" variant="body2">
-                        {"Don't have an account? Sign Up"}
-                        </Link>
-                    </Grid>
-                    </Grid>
-                </Box>
-                </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-            </Container>
-            <Snackbar
-                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                open={hasErrors}
-                autoHideDuration={6000}
-                key={'test'}
-            >
-                <Alert severity="error">{errorMsg}</Alert>
-            </Snackbar>
-        </ThemeProvider>
+                    <Alert variant='filled' severity='error'>{errorMsg}</Alert>
+                </Snackbar>
+            </ThemeProvider>
+        </React.Fragment>
     )
 }
 
