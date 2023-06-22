@@ -1,5 +1,4 @@
 import axios from "axios";
-// import {getCookie} from './helpers'
 
 //for maintanable API endpoints
 
@@ -18,4 +17,14 @@ export  function UserLogin(data){
            headers : [headers]
         } 
     );
+}
+
+export function UserRegistration(data){
+    return axios.post(
+        baseUrl + env.REACT_APP_REGISTER,
+        {...data},
+        {
+            headers: [headers]
+        }
+    )
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {Copyright,setCookie,getCookie} from '../../helpers/helpers';
 import {UserLogin} from '../../helpers/apiCalls';
 
+import SnackbarAlert from '../../components/Alerts/Snackbar';
 import {
     Avatar,
     Button,
@@ -16,17 +17,15 @@ import {
     Box,
     Container,
     createTheme, ThemeProvider,
-    Typography,
-    Snackbar,
-    Alert
+    Typography
 } from '@mui/material';
 
 const Login = () => {
     const [hasErrors, setHasErrors] = useState(false);
     const [errorMsg,setErrorMsg] = useState('');
 
-     // refresh token and redirect again to dashboard
-     if(getCookie('token')){
+    // refresh token and redirect again to dashboard
+    if(getCookie('token')){
         window.location.href='/dashboard';
     }
 
@@ -45,7 +44,7 @@ const Login = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
         
-        const formdata = {email: e.target['email'].value ,password: e.target['password'].value}
+        const formdata = {email: e.target.email.value ,password: e.target.password.value}
         
         UserLogin(formdata).then(response => {
             setCookie('token',response.data.auth.token)
@@ -55,9 +54,20 @@ const Login = () => {
         });
        
     }
+    const handleChange = () =>{setHasErrors(false);}
     return(
         <React.Fragment>
             <ThemeProvider theme={defaultTheme}>
+                 {/* create pop up error alerts */}
+                <SnackbarAlert 
+                    open = {hasErrors}
+                    position = {{horizontal: 'center', vertical: 'top'}} 
+                    duration = {6000}
+                    variant={'filled'}
+                    severity = {'error'}
+                    msg = {errorMsg}
+                />
+                {/* wrapper */}
                 <Box  sx={{
                     width: '100%',
                     height:'100vh',
@@ -79,7 +89,7 @@ const Login = () => {
                         <Typography component='h1' variant='h5'>
                             Sign in
                         </Typography>
-                        <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box component='form' onSubmit={handleSubmit} onChange={handleChange} sx={{ mt: 1 }}>
                             <TextField
                                 margin='normal'
                                 required
@@ -119,7 +129,7 @@ const Login = () => {
                                     </Link>
                                 </Grid>
                                 <Grid item xs>
-                                    <Link href='#' variant='body2'>
+                                    <Link href='register' variant='body2'>
                                         Sign Up
                                     </Link>
                                 </Grid>
@@ -129,15 +139,6 @@ const Login = () => {
                     </Container>
                     <Copyright sx={{ mt: 8, mb: 4 }} />
                 </Box >
-
-                <Snackbar
-                    anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
-                    open={hasErrors}
-                    autoHideDuration={6000}
-                    key={'test'}
-                >
-                    <Alert variant='filled' severity='error'>{errorMsg}</Alert>
-                </Snackbar>
             </ThemeProvider>
         </React.Fragment>
     )

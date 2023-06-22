@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { 
-    createTheme, ThemeProvider,
+    ThemeProvider,
     Box ,
     TextField,
     Grid,
@@ -74,9 +74,11 @@ const Registration = (props) => {
                         type='submit'
                         fullWidth
                         variant='contained'
+                        sx={{mt:2, mb: 2}}
                     >
                         Register
                     </Button>
+                    
                 </Box>
             </ThemeProvider>
         </React.Fragment>
