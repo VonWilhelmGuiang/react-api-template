@@ -17,12 +17,14 @@ import {
     Box,
     Container,
     createTheme, ThemeProvider,
-    Typography
+    Typography,
+    LinearProgress
 } from '@mui/material';
 
 const Login = () => {
     const [hasErrors, setHasErrors] = useState(false);
     const [errorMsg,setErrorMsg] = useState('');
+    const [showProcessing, setShowProcessing] = useState(false);
 
     // refresh token and redirect again to dashboard
     if(getCookie('token')){
@@ -43,14 +45,16 @@ const Login = () => {
     });
     const handleSubmit = (e)=>{
         e.preventDefault();
-        
+        setShowProcessing(true);
         const formdata = {email: e.target.email.value ,password: e.target.password.value}
         
         UserLogin(formdata).then(response => {
             setCookie('token',response.data.auth.token)
+            setShowProcessing(false)
         }).catch(error=>{
             setErrorMsg(error.response.data.message)
             setHasErrors(true);
+            setShowProcessing(false)
         });
        
     }
@@ -76,6 +80,7 @@ const Login = () => {
                 }}> 
                     <Container component='main' maxWidth='xs' sx={{bgcolor : 'secondary.bgColor', borderRadius : 5}}>
                         <CssBaseline />
+                        <LinearProgress sx={{display: showProcessing? 'block' : 'block', borderRadius:100}}/>
                         <Box
                             sx={{
                                 display: 'flex',

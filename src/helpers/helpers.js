@@ -30,6 +30,6 @@ export function setCookie(key = false ,value = false){
 }
 
 export  function getCookie (key) {
-    const cookieVal  = document.cookie .split('; ').find(row => row.startsWith(key))?.split('=')[1] ?? null;
+    const cookieVal  = document.cookie.split('; ').find(row => row.startsWith(key))?.split('=')[1] ?? null;
     return cookieVal;
 }

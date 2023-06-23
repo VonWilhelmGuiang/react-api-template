@@ -11,12 +11,13 @@ import {
     Avatar,
     Typography,
     Link,
-    CssBaseline
+    CssBaseline,
+    LinearProgress
 } from '@mui/material';
 
 const Register = () => {
     const [registerMsg, setRegisterMsg] = useState({message: '', status: '',show:false});
-
+    const [showProcessing, setShowProcessing] = useState(false);
     const defaultTheme = createTheme({
         palette:{
             primary: {
@@ -31,9 +32,10 @@ const Register = () => {
     });
     
     // create handlers
-    const submit = (e) =>{
+    const handleSubmit = (e) =>{
         e.preventDefault();
-        
+
+        setShowProcessing(true);
         const user_data = {
             first_name : e.target.first_name.value,
             last_name : e.target.last_name.value,
@@ -44,21 +46,22 @@ const Register = () => {
         UserRegistration(user_data).then(resp => {
             //set cookies
             setCookie('token',resp.data.auth.token)
-            console.log(resp.data.auth.token)
             setRegisterMsg({
                 status : resp.data.status, 
                 message: resp.data.message,
                 show: true
-            })
+            });
+            setShowProcessing(false);
         }).catch(error=>{
             setRegisterMsg({
                 status : error.response.data.status, 
                 message: error.response.data.message,
                 show: true
             })
-            console.log(registerMsg)
+            setShowProcessing(false)
         })
     }
+    const handleChange = () => {setRegisterMsg({show:false});}
     
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -81,6 +84,7 @@ const Register = () => {
             >
                 <Container component='main' maxWidth='sm'>
                 <CssBaseline />
+                <LinearProgress sx={{display: showProcessing? 'block' : 'block', pt:1}}/>
                     <Box
                         sx={{
                             display: 'flex',
@@ -91,11 +95,12 @@ const Register = () => {
                             padding:3
                         }}
                     >
+                        
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}/>
                         <Typography component='h1' variant='h5'>
                             Register
                         </Typography>
-                        <Box sx={{ mt: 1 }} onSubmit={submit}>
+                        <Box sx={{ mt: 1 }} onSubmit={handleSubmit} onChange={handleChange}>
                             <Registration 
                                 theme={defaultTheme}
                             />
