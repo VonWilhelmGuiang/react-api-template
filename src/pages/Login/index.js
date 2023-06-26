@@ -50,6 +50,7 @@ const Login = () => {
         
         UserLogin(formdata).then(response => {
             setCookie('token',response.data.auth.token)
+            setCookie('user_type',response.data.user_type)
             setShowProcessing(false)
         }).catch(error=>{
             setErrorMsg(error.response.data.message)
@@ -62,7 +63,7 @@ const Login = () => {
     return(
         <React.Fragment>
             <ThemeProvider theme={defaultTheme}>
-                 {/* create pop up error alerts */}
+                {/* create pop up error alerts */}
                 <SnackbarAlert 
                     open = {hasErrors}
                     position = {{horizontal: 'center', vertical: 'top'}} 

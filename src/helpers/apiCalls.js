@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "./helpers";
 
 //for maintanable API endpoints
 
@@ -7,6 +8,7 @@ const env = process.env;
 const  headers = {
     "Content-Type": "multipart/form-data",
     "Accept" : "application/json",
+    "Authorization": `Bearer ${getCookie('token') ?? '' }`
 }
 
 export  function UserLogin(data){
@@ -14,7 +16,9 @@ export  function UserLogin(data){
         baseUrl + env.REACT_APP_LOGIN,
         {...data}, 
         {
-           headers : [headers]
+            headers:{
+                ...headers
+            }
         } 
     );
 }
@@ -24,7 +28,20 @@ export function UserRegistration(data){
         baseUrl + env.REACT_APP_REGISTER,
         {...data},
         {
-            headers: [headers]
+            headers:{
+                ...headers
+            }
+        }
+    )
+}
+
+export async function AllUsers(){
+    return await axios.get(
+        baseUrl+ env.REACT_APP_ALL_USERS,
+        {
+            headers:{
+                ...headers
+            }
         }
     )
 }
