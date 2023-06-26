@@ -80,7 +80,7 @@ const Login = () => {
                 }}> 
                     <Container component='main' maxWidth='xs' sx={{bgcolor : 'secondary.bgColor', borderRadius : 5}}>
                         <CssBaseline />
-                        <LinearProgress sx={{display: showProcessing? 'block' : 'block', borderRadius:100}}/>
+                        <LinearProgress sx={{display: showProcessing? 'block' : 'none', borderRadius:100}}/>
                         <Box
                             sx={{
                                 display: 'flex',

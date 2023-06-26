@@ -84,7 +84,7 @@ const Register = () => {
             >
                 <Container component='main' maxWidth='sm'>
                 <CssBaseline />
-                <LinearProgress sx={{display: showProcessing? 'block' : 'block', pt:1}}/>
+                <LinearProgress sx={{display: showProcessing? 'block' : 'none', pt:1}}/>
                     <Box
                         sx={{
                             display: 'flex',
