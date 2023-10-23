@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 import routes from "routes.js";
@@ -59,7 +59,6 @@ const Auth = (props) => {
             </div>
             {/* Page content */}
             <Container className="mt--9" style={{height:'55em'}}>
-                <div>asdfasdf</div>
                 <Row className="justify-content-center">
                     <Routes>
                         {getRoutes(routes)}

@@ -73,5 +73,12 @@ var routes = [
     component: <Register />,
     layout: "/auth",
   },
+  {
+    path: "/tables",
+    name: "Tables",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: <Tables />,
+    layout: "/customer"
+  }
 ];
 export default routes;
