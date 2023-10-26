@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, Route, Routes, Navigate } from "react-router-dom";
+import { useLocation, Route, Routes } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
@@ -12,23 +12,10 @@ import routes from "routes.js";
 const Customer = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
-
-  React.useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    mainContent.current.scrollTop = 0;
-  }, [location]);
+  const current_routes = routes.filter((x)=> x.layout === "/customer")
 
   const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/customer") {
-        return (
-          <Route path={prop.path} element={prop.component} key={key} exact />
-        );
-      } else {
-        return null;
-      }
-    });
+    return routes.map((prop, key) => <Route path={prop.path} element={prop.component} key={key} exact />);
   };
 
   const getBrandText = (path) => {
@@ -47,7 +34,7 @@ const Customer = (props) => {
     <>
       <Sidebar
         {...props}
-        routes={routes}
+        routes={current_routes}
         logo={{
           innerLink: "/admin/index",
           imgSrc: require("../assets/img/brand/argon-react.png"),
@@ -60,12 +47,8 @@ const Customer = (props) => {
           brandText={getBrandText(props?.location?.pathname)}
         />
         <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/admin/index" replace />} />
+          {getRoutes(current_routes)}
         </Routes>
-        <Container fluid>
-          <AdminFooter />
-        </Container>
       </div>
     </>
   );
