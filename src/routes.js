@@ -79,6 +79,13 @@ var routes = [
     icon: "ni ni-bullet-list-67 text-red",
     component: <Tables />,
     layout: "/customer"
+  },
+  {
+    path: "/tables",
+    name: "Tables",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: <Tables />,
+    layout: "/shopowner"
   }
 ];
 export default routes;

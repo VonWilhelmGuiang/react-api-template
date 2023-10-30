@@ -1,57 +1,37 @@
 import React from "react";
-import { useLocation, Route, Routes } from "react-router-dom";
-// reactstrap components
-import { Container } from "reactstrap";
+import { Routes } from "react-router-dom";
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import AdminFooter from "components/Footers/AdminFooter.js";
+import UsersNavbar from "components/Navbars/UsersNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-
+//routes
 import routes from "routes.js";
+// helpers
+import { filterRoutes,createRoutes } from "helpers/Navbars";
+
 
 const Customer = (props) => {
-  const mainContent = React.useRef(null);
-  const location = useLocation();
-  const current_routes = routes.filter((x)=> x.layout === "/customer")
-
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => <Route path={prop.path} element={prop.component} key={key} exact />);
-  };
-
-  const getBrandText = (path) => {
-    for (let i = 0; i < routes.length; i++) {
-      if (
-        props?.location?.pathname.indexOf(routes[i].layout + routes[i].path) !==
-        -1
-      ) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
-
-  return (
-    <>
-      <Sidebar
-        {...props}
-        routes={current_routes}
-        logo={{
-          innerLink: "/admin/index",
-          imgSrc: require("../assets/img/brand/argon-react.png"),
-          imgAlt: "...",
-        }}
-      />
-      <div className="main-content" ref={mainContent}>
-        <AdminNavbar
-          {...props}
-          brandText={getBrandText(props?.location?.pathname)}
-        />
-        <Routes>
-          {getRoutes(current_routes)}
-        </Routes>
-      </div>
-    </>
-  );
+    const mainContent = React.useRef(null);
+    const current_routes = filterRoutes(routes, '/customer');
+    const create_routes = createRoutes(current_routes)
+    return (
+        <>
+            <Sidebar
+                {...props}
+                routes={current_routes}
+                logo={{
+                innerLink: "/admin/index",
+                imgSrc: require("../assets/img/brand/company logo.png"),
+                imgAlt: "...",
+                }}
+            />
+            <div className="main-content" ref={mainContent}>
+                <UsersNavbar />
+                <Routes>
+                    {create_routes}
+                </Routes>
+            </div>
+        </>
+    );
 };
 
 export default Customer;
