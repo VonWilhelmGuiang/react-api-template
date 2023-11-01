@@ -9,7 +9,7 @@ import routes from "routes.js";
 import { filterRoutes,createRoutes } from "helpers/Navbars";
 
 
-const Customer = (props) => {
+const ShopOwner = (props) => {
     const mainContent = React.useRef(null);
     const current_routes = filterRoutes(routes, '/shopowner');
     const create_routes = createRoutes(current_routes)
@@ -34,4 +34,4 @@ const Customer = (props) => {
     );
 };
 
-export default Customer;
+export default ShopOwner;

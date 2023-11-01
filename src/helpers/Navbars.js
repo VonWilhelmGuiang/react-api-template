@@ -17,7 +17,7 @@ from "reactstrap";
         
         user_layout
             : string
-            : url url of the user such as ('/admin', '/customer' , '/shopowner')
+            : url url of the user such as ('/admin', '/vehicleowner' , '/shopowner')
 */
 export const filterRoutes = (routes, user_path) => routes ? routes?.filter((x)=> x.layout === user_path): []
 

@@ -78,7 +78,7 @@ var routes = [
     name: "Tables",
     icon: "ni ni-bullet-list-67 text-red",
     component: <Tables />,
-    layout: "/customer"
+    layout: "/vehicleowner"
   },
   {
     path: "/tables",
