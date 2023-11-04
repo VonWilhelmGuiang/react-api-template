@@ -26,7 +26,6 @@ const Auth = (props) => {
 
     const getRoutes = (routes) => {
         return routes.map((prop, key) => {
-            console.log(prop)
             if (prop.layout === "/auth") {
                 return (
                     <Route path={prop.path} element={prop.component} key={key} exact />
@@ -40,7 +39,7 @@ const Auth = (props) => {
     return (
         <>
         <div className="main-content bg-default" ref={mainContent}>
-            <div className="header bg-gradient-success py-7 py-lg-8">
+            <div className="header bg-gradient-success py-8">
                 <div className="separator separator-bottom separator-skew zindex-100" style={{bottom:'-2px'}}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +57,7 @@ const Auth = (props) => {
                 </div>
             </div>
             {/* Page content */}
-            <Container className="mt--9" style={{height:'55em'}}>
+            <Container className="mt--9" style={{height:'90.4vh'}}>
                 <Row className="justify-content-center">
                     <Routes>
                         {getRoutes(routes)}
